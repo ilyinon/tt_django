@@ -3,4 +3,3 @@ server/env/
 db.sqlite3
 /logs/
 /**/__pycache__/
-.env
