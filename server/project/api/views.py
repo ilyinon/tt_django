@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
+from .models import Server, Uptime
 from rest_framework import viewsets
-from project.api.serializers import UserSerializer, GroupSerializer
+from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

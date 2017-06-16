@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from .models import Server, Uptime
 from rest_framework import serializers
 
 
@@ -17,5 +18,5 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class ServerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Server
-        fields = ('url', 'name')
+        fields = ('id', 'fqdn')
 
