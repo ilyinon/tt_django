@@ -13,7 +13,7 @@ postgres:
     networks:
       default:
       app_net:
-        ipv4_address: ${DOCKER_TT_NET}
+        ipv4_address: ${DOCKER_TT_NET_POSTGRES}
 
 server:
     build: .
@@ -22,7 +22,7 @@ server:
     networks:
       default:
       app_net:
-        ipv4_address: ${DOCKER_TT_NET}
+        ipv4_address: ${DOCKER_TT_NET_SERVER}
     ports:
       - "8080:8080"
     links:
@@ -33,7 +33,7 @@ server:
     restart: unless-stopped
     networks:
       app_net:
-        ipv4_address: ${DOCKER_TT_NET}
+        ipv4_address: ${DOCKER_TT_NET_CLIENT}
 
 
 volumes:
@@ -45,6 +45,6 @@ networks:
     ipam:
       driver: default
       config:
-      - subnet: ${DOCKER_TT_NET}
+      - subnet: ${DOCKER_TT_NET_GATEWAY}
         gateway: ${DOCKER_TT_NET_GATEWAY}
 
