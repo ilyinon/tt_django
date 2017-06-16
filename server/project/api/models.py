@@ -7,7 +7,7 @@ class Server(models.Model):
     fqdn = models.CharField(max_length=255, null=False)
 
 class Uptime(models.Model):
-    server = models.ForeignKey(Server, related_name='fqdn')
+    server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='+',)
     timespamp = models.DateTimeField('timespamp')
 
 # Create your models here.

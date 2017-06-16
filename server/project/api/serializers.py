@@ -20,3 +20,8 @@ class ServerSerializer(serializers.HyperlinkedModelSerializer):
         model = Server
         fields = ('id', 'fqdn')
 
+class UptimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Uptime
+        fields = ('server', 'timespamp')
+

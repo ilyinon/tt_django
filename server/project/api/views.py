@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from .models import Server, Uptime
 from rest_framework import viewsets
-from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer
+from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer, UptimeSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -19,10 +19,17 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-class ServerViewSet(viewset.ModelViewSet):
+class ServerViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows servers to be viewed or edited.
     """
     queryset = Server.objects.all()
     serializer_class = ServerSerializer
+
+class UptimeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows uptime to be viewed or edited.
+    """
+    queryset = Uptime.objects.all()
+    serializer_class = UptimeSerializer
 
