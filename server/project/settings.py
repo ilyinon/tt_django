@@ -25,7 +25,7 @@ SECRET_KEY = '^s6nh=)6($ngnv(0+ee8((zx33$477*mib9rgdka*&+1fdk^4z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
