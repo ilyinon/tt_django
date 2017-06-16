@@ -1,0 +1,50 @@
+version: '2.1'
+services:
+
+postgres:
+    image: postgres:9.5
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${TT_DB_USER}
+      POSTGRES_PASSWORD: ${TT_DB_PASSWORD}
+      POSTGRES_DB: ${TT_DB_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      default:
+      app_net:
+        ipv4_address: ${DOCKER_TT_NET}
+
+server:
+    build: .
+    image: tt_server
+    restart: unless-stopped
+    networks:
+      default:
+      app_net:
+        ipv4_address: ${DOCKER_TT_NET}
+    ports:
+      - "8080:8080"
+    links:
+      - postgres
+
+ client:
+    image: tt_client
+    restart: unless-stopped
+    networks:
+      app_net:
+        ipv4_address: ${DOCKER_TT_NET}
+
+
+volumes:
+  postgres-data:
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: ${DOCKER_TT_NET}
+        gateway: ${DOCKER_TT_NET_GATEWAY}
+
