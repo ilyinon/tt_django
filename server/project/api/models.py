@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-class Servers(models.Model):
+class Server(models.Model):
     fqdn = models.CharField(max_length=255, null=False)
     time
 

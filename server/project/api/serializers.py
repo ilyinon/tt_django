@@ -12,3 +12,10 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+
+
+class ServerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Server
+        fields = ('url', 'name')
+

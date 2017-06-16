@@ -17,3 +17,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+class ServerViewSet(viewset.ModelViewSet):
+    """
+    API endpoint that allows servers to be viewed or edited.
+    """
+    queryset = Server.objects.all()
+    serializer_class = ServerSerializer
+
