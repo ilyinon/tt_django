@@ -15,11 +15,8 @@ from project.api import views
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'^server/$', views.server_list),
-    url(r'^server/(?P<pk>[0-9]+)$', views.server_detail),
-#    url(r'^', include(router.urls)),
-#    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-#    url(r'^server/$', server_list, name='server-list'),
+    url(r'^', views.serverheartbeat_view),
+    url(r'^status/$', views.serverheartbeat_status),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 
