@@ -19,6 +19,8 @@ class ServerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Server
         fields = ('id', 'fqdn')
+    def create(self, validated_data):
+        return Server.objects.create(**validated_data)
 
 class UptimeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
