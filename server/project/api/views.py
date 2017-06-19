@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
-from .models import Server, Uptime
+from .models import Server, Uptime, ServerHeartbeat
 from rest_framework import viewsets
-from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer, UptimeSerializer
+from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer, UptimeSerializer, ServerHeartbeatSerializer
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -16,7 +16,6 @@ def server_list(request, format=None):
         serializer = ServerSerializer(server, many=True)
         return Response(serializer.data)
 
-# TODO: doesn't work now
     elif request.method == 'POST':
         serializer = ServerSerializer(data=request.data)
         if serializer.is_valid():
