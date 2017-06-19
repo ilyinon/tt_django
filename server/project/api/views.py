@@ -89,18 +89,3 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-class ServerViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows servers to be viewed or edited.
-    """
-    queryset = Server.objects.all()
-    serializer_class = ServerSerializer
-
-
-class UptimeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows uptime to be viewed or edited.
-    """
-    queryset = Uptime.objects.all()
-    serializer_class = UptimeSerializer
-
