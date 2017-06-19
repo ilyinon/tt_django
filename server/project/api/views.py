@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.db.models import Count
 from .models import Server, Uptime, ServerHeartbeat
 from rest_framework import viewsets
 from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer, UptimeSerializer, ServerHeartbeatSerializer
@@ -13,7 +14,11 @@ def serverheartbeat_view(request, format=None):
     if request.method == 'GET':
         serverheartbeat = ServerHeartbeat.objects.all()
         serializer = ServerHeartbeatSerializer(serverheartbeat, many=True)
-        return Response(serializer.data)
+        common_status = ServerHeartbeat.objects.all().count()
+        uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(the_count=Count('Timestamp'))
+#        count = 1000
+#        uptime = float(common_status) / 60 * 24
+        return Response(uptime)
 
     elif request.method == 'POST':
         serializer = ServerHeartbeatSerializer(data=request.data)
@@ -22,12 +27,6 @@ def serverheartbeat_view(request, format=None):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def serverheartbeat_status(request, format=None):
-
-    if request.method == 'GET':
-        serverheartbeat = ServerHeartbeat.objects.all()
-        serializer = ServerHeartbeatSerializer(serverheartbeat, many=True)
-        return Response(serializer.data)
 
 
 
