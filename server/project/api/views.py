@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from django.db.models import Count, FloatField
+from django.db.models import Count, FloatField, DecimalField
 from django.db.models.functions import Cast
 from .models import Server, Uptime, ServerHeartbeat
 from rest_framework import viewsets
@@ -16,10 +16,7 @@ def serverheartbeat_view(request, format=None):
         serverheartbeat = ServerHeartbeat.objects.all()
         serializer = ServerHeartbeatSerializer(serverheartbeat, many=True)
         common_status = ServerHeartbeat.objects.all().count()
-        uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(uptime=Cast(Count('Timestamp') / ( 60.0 * 24.0  ), FloatField()))
-#        uptime = ServerHeartbeat.objects.values('ServerFQDN','Timestamp').order_by()
-#        count = 1000
-#        uptime = float(common_status) / 60 * 24
+        uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(uptime=Cast(Count('Timestamp') / ( 60.0 * 24.0  ), DecimalField(max_digits=5, decimal_places=2)))
         return Response(uptime)
 
     elif request.method == 'POST':
@@ -28,50 +25,6 @@ def serverheartbeat_view(request, format=None):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-@api_view(['GET', 'POST'])
-def server_list(request, format=None):
-
-    if request.method == 'GET':
-        server = Server.objects.all()
-        serializer = ServerSerializer(server, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = ServerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def server_detail(request, pk):
-
-    try:
-        server = Server.objects.get(pk=pk)
-    except Server.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = ServerSerializer(server)
-        return Response(serializer.data)
-
-
-    elif request.method == 'PUT':
-        serializer = ServerSerializer(server, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-    elif request.method == 'DELETE':
-        server.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 
