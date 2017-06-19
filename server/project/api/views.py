@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User, Group
 from django.db.models import Count, FloatField, DecimalField
 from django.db.models.functions import Cast
-from .models import Server, Uptime, ServerHeartbeat
+from .models import ServerHeartbeat
 from rest_framework import viewsets
-from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer, UptimeSerializer, ServerHeartbeatSerializer
+from project.api.serializers import UserSerializer, GroupSerializer, ServerHeartbeatSerializer
 
 from rest_framework import status
 from rest_framework.decorators import api_view

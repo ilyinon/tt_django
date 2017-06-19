@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from .models import Server, Uptime, ServerHeartbeat
+from .models import ServerHeartbeat
 from rest_framework import serializers
 
 
@@ -18,14 +18,4 @@ class ServerHeartbeatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ServerHeartbeat
         fields = ('ServerFQDN', 'Timestamp')
-
-class ServerSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Server
-        fields = ('id', 'fqdn')
-
-class UptimeSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Uptime
-        fields = ('server', 'timespamp')
 
