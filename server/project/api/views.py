@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Group
-from django.db.models import Count
+from django.db.models import Count, FloatField
+from django.db.models.functions import Cast
 from .models import Server, Uptime, ServerHeartbeat
 from rest_framework import viewsets
 from project.api.serializers import UserSerializer, GroupSerializer, ServerSerializer, UptimeSerializer, ServerHeartbeatSerializer
@@ -15,7 +16,8 @@ def serverheartbeat_view(request, format=None):
         serverheartbeat = ServerHeartbeat.objects.all()
         serializer = ServerHeartbeatSerializer(serverheartbeat, many=True)
         common_status = ServerHeartbeat.objects.all().count()
-        uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(the_count=Count('Timestamp'))
+        uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(uptime=Cast(Count('Timestamp') / ( 60.0 * 24.0  ), FloatField()))
+#        uptime = ServerHeartbeat.objects.values('ServerFQDN','Timestamp').order_by()
 #        count = 1000
 #        uptime = float(common_status) / 60 * 24
         return Response(uptime)
