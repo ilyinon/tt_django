@@ -17,7 +17,15 @@ def serverheartbeat_view(request, format=None):
         serializer = ServerHeartbeatSerializer(serverheartbeat, many=True)
         common_status = ServerHeartbeat.objects.all().count()
         uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(uptime=Cast(Count('Timestamp') / ( 60.0 * 24.0  ), DecimalField(max_digits=5, decimal_places=2)))
-        return Response(uptime)
+        full_answer=[]
+        for i in uptime:
+            local_dict = {}
+            local_dict['serverfqdn'] = i['ServerFQDN']
+            local_dict['uptime'] = i['uptime']
+            full_answer.append(local_dict)
+
+
+        return Response(full_answer)
 
     elif request.method == 'POST':
         serializer = ServerHeartbeatSerializer(data=request.data)
