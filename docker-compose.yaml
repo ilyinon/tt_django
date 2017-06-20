@@ -8,8 +8,8 @@ services:
       POSTGRES_USER: ${TT_DB_USER}
       POSTGRES_PASSWORD: ${TT_DB_PASSWORD}
       POSTGRES_DB: ${TT_DB_NAME}
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+#    volumes:
+#      - postgres-data:/var/lib/postgresql/data
     networks:
       default:
       app_net:
@@ -36,8 +36,8 @@ services:
         ipv4_address: ${DOCKER_TT_NET_CLIENT}
 
 
-volumes:
-  postgres-data:
+#volumes:
+#  postgres-data:
 
 networks:
   app_net:
