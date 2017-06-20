@@ -14,7 +14,7 @@ For deploy all solution just run:
 
 
 
-There are preset:
+There are presets:
  - user and password for accessing Django application:
     ```admin:admin```
  - IP addresses:
@@ -24,7 +24,9 @@ There are preset:
 
 
 Useful CURL command:
+
 Get statistics
+
 ```curl -H 'Accept: application/json; indent=4' -u admin:admin  http://10.0.0.20:8000/status/```
 
 Send statistics:
