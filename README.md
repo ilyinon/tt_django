@@ -1,7 +1,7 @@
-This is example of implementation Django API. There is only one model which include FQDN and Timespamt.
-There are available two methods for API interactin: 
+This is example of implementation Django API. There is only one model which include FQDN and Timespamp.
+There are available two methods for API interaction: 
   - get statistics
-  - send statistic of current uses
+  - send statistic of current server
 
 There are three docker containers:
  - client, which run script for sending statistics to server
