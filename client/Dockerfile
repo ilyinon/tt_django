@@ -6,4 +6,4 @@ RUN export http_proxy=http://192.168.200.4:8080 && export https_proxy=http://192
 
 COPY ./check_client.sh /bin/check_client.sh
 RUN chmod +x /bin/check_client.sh && echo "* * * * *   root    /bin/bash /bin/check_client.sh" >> /etc/crontab
-ENTRYPOINT while :; do sleep 1; done
+ENTRYPOINT /usr/bin/crontab
