@@ -1,7 +1,7 @@
-version: '2.1'
+version: '2.0'
 services:
 
-postgres:
+  postgres:
     image: postgres:9.5
     restart: unless-stopped
     environment:
@@ -15,7 +15,7 @@ postgres:
       app_net:
         ipv4_address: ${DOCKER_TT_NET_POSTGRES}
 
-server:
+  server:
     build: .
     image: tt_server
     restart: unless-stopped
@@ -24,11 +24,11 @@ server:
       app_net:
         ipv4_address: ${DOCKER_TT_NET_SERVER}
     ports:
-      - "8080:8080"
+      - "8000:8000"
     links:
       - postgres
 
- client:
+  client:
     image: tt_client
     restart: unless-stopped
     networks:
@@ -41,10 +41,10 @@ volumes:
 
 networks:
   app_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: ${DOCKER_TT_NET_GATEWAY}
-        gateway: ${DOCKER_TT_NET_GATEWAY}
+      driver: bridge
+      ipam:
+        driver: default
+        config:
+        - subnet: ${DOCKER_TT_NET_GATEWAY}
+          gateway: ${DOCKER_TT_NET_GATEWAY}
 
