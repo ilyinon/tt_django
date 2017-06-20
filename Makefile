@@ -10,3 +10,7 @@ build-server:
 
 deploy-all:
 	@docker-compose up -d
+
+destroy-all:
+	@docker-compose rm
+
