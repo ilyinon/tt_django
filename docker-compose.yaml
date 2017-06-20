@@ -41,10 +41,10 @@ services:
 
 networks:
   app_net:
-      driver: bridge
-      ipam:
+    driver: bridge
+    ipam:
         driver: default
         config:
-        - subnet: ${DOCKER_TT_NET_GATEWAY}
+        - subnet: ${DOCKER_TT_NET_SUBNET}
           gateway: ${DOCKER_TT_NET_GATEWAY}
 
