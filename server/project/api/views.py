@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User, Group
 from django.db.models import Count, FloatField, DecimalField
 from django.db.models.functions import Cast
+from datetime import datetime, timedelta
+
 from .models import ServerHeartbeat
+
 from rest_framework import viewsets
 from project.api.serializers import UserSerializer, GroupSerializer, ServerHeartbeatSerializer
 
@@ -9,16 +12,14 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 import json
 
 @api_view(['GET', 'POST'])
 def serverheartbeat_view(request, format=None):
 
     if request.method == 'GET':
-        serverheartbeat = ServerHeartbeat.objects.all()
-        serializer = ServerHeartbeatSerializer(serverheartbeat, many=True)
-        common_status = ServerHeartbeat.objects.all().count()
-        uptime = ServerHeartbeat.objects.values('ServerFQDN').order_by().annotate(uptime=Cast(Count('Timestamp') / ( 60.0 * 24.0  ), DecimalField(max_digits=5, decimal_places=2)))
+        uptime = ServerHeartbeat.objects.filter(Timestamp__gte=datetime.now()-timedelta(days=1)).values('ServerFQDN').order_by().annotate(uptime=Cast(Count('Timestamp') / ( 60.0 * 24.0  ), DecimalField(max_digits=5, decimal_places=2)))
         full_answer=[]
         for i in uptime:
             local_dict = {}
