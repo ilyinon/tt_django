@@ -9,4 +9,4 @@ build-server:
 	cd server && docker build . -t tt_server
 
 deploy-all:
-	@docker-compose up
+	@docker-compose up -d
