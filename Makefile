@@ -8,9 +8,10 @@ build-client:
 build-server:
 	cd server && docker build . -t tt_server
 
-deploy-all:
+deploy-all: build-client build-server
 	@docker-compose up -d
 
 destroy-all:
+	@docker-compose stop
 	@docker-compose rm
 
