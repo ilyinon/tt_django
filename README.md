@@ -1,6 +1,32 @@
-Test task
+This is example of implementation Django API. There is only one model which include FQDN and Timespamt.
+There are available two methods for API interactin: 
+  - get statistics
+  - send statistic of current uses
+
+There are three docker containers:
+ - client, which run script for sending statistics to server
+ - server, which start Django application for processing request
+ - database, postgres, which is using for storing data by server
+
+For deploy all solution just run: 
+ ```make deploy-all```
+
+
+
+
+There are preset:
+ - user and password for accessing Django application:
+    ```admin:admin```
+ - IP addresses:
+    10.0.0.10 - postgres
+    10.0.0.20 - server, Django API
+    10.0.0.30 - client
+
 
 Useful CURL command:
-curl -X POST -i -H "Accept: application/json" -u admin:admin localhost:8000/status/ -d ServerFQDN=server1
-curl -i -H "Accept: application/json" -u admin:admin localhost:8000/status/
+Get statistics
+```curl -H 'Accept: application/json; indent=4' -u admin:admin  http://10.0.0.20:8000/status/```
 
+Send statistics:
+
+```curl -X POST -i -H "Accept: application/json"  -u admin:admin -d '{"ServerFQDN":"server1"}'  http://10.0.0.20:8000/status/```
