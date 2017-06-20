@@ -9,6 +9,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+import json
+
 @api_view(['GET', 'POST'])
 def serverheartbeat_view(request, format=None):
 
@@ -28,7 +30,7 @@ def serverheartbeat_view(request, format=None):
         return Response(full_answer)
 
     elif request.method == 'POST':
-        serializer = ServerHeartbeatSerializer(data=request.data)
+        serializer = ServerHeartbeatSerializer(data=json.loads(request.body))
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
