@@ -1,4 +1,6 @@
 
+default: 
+	echo "run \"make deploy-all\" for doing all automatically"
 
 build-client:
 	cd client && docker build . -t tt_client
