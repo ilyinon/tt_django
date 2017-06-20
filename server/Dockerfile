@@ -7,7 +7,7 @@ WORKDIR ${base_dir}
 EXPOSE 8000
 
 #RUN export http_proxy=http://192.168.200.4:8080 && export https_proxy=http://192.168.200.4:8080 && apt-get update && apt-get install -y python-pip python-dev
-RUN export apt-get update && apt-get install -y python-pip python-dev
+RUN apt-get update && apt-get install -y python-pip python-dev
 
 COPY ./requirements.txt ${base_dir}/requirements.txt
 #RUN export http_proxy=http://192.168.200.4:8080 && export https_proxy=http://192.168.200.4:8080 && pip install -r ${base_dir}/requirements.txt 
