@@ -15,8 +15,6 @@ RUN pip install -r ${base_dir}/requirements.txt
 
 COPY . ${base_dir}
 ENTRYPOINT python manage.py migrate && \
-  echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); \
-  User.objects.create_superuser('admin@localhost', 'admin', 'admin')" | python manage.py shell && \
   gunicorn -w 3 --bind=0.0.0.0:8000 project.wsgi
 
  
