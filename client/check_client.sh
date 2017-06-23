@@ -1,7 +1,7 @@
 #!/bin/bash
 tt_user="admin"
 tt_password="admin"
-tt_server="10.0.0.20"
+tt_server="server"
 tt_port="8000"
 my_hostname=`hostname -f`
 
