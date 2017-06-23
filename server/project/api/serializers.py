@@ -14,8 +14,8 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ('url', 'name')
 
+
 class ServerHeartbeatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ServerHeartbeat
         fields = ('ServerFQDN', 'Timestamp')
-
